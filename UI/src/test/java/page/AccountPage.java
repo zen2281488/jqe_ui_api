@@ -37,65 +37,54 @@ public class AccountPage extends BasePage {
     @FindBy(css = "span.ng-binding")
     private WebElement accountName;
 
-    @Step("Клик по кнопке 'Deposit'")
+    @Step("пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 'Deposit'")
     public AccountPage clickDepositButton() {
-        wait.until(visibilityOf(depositButton));
-        depositButton.click();
+        clickElement(depositButton);
         return this;
     }
 
-    @Step("Клик по кнопке 'WithDrawl'")
+    @Step("пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 'WithDrawl'")
     public AccountPage clickWithDrawlButton() {
-        wait.until(visibilityOf(withDrawlButton));
-        withDrawlButton.click();
+        clickElement(withDrawlButton);
         return this;
     }
 
-    @Step("Клик по кнопке 'Transactions'")
+    @Step("пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 'Transactions'")
     public AccountPage clickTransactionsButton() {
-        wait.until(visibilityOf(transactionsButton));
-        transactionsButton.click();
+        clickElement(transactionsButton);
         return this;
     }
 
-    @Step("Клик по кнопке отправки транзакции 'Withdrawl'")
+    @Step("пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 'Withdrawl'")
     public AccountPage clickSubmitWithdrawlButton() {
-        wait.until(visibilityOf(submitWithdrawButton));
-        submitWithdrawButton.click();
-        wait.until(visibilityOf(message));
+        clickElement(submitWithdrawButton);
         return this;
     }
 
-    @Step("Клик по кнопке отправки транзакции 'Deposit'")
+    @Step("пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 'Deposit'")
     public AccountPage clickSubmitDepositButton() {
-        wait.until(visibilityOf(submitDepositButton));
-        submitDepositButton.click();
-        wait.until(visibilityOf(message));
+        clickElement(submitDepositButton);
         return this;
     }
 
-    @Step("Заполнение поля Deposit числом: {num} ")
+    @Step("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ Deposit пїЅпїЅпїЅпїЅпїЅпїЅ: {num} ")
     public AccountPage fillAmountDepositInput(int num) {
-        wait.until(visibilityOf(amountDepositInput));
-        amountDepositInput.clear();
-        amountDepositInput.sendKeys(Integer.toString(num));
+        fillElement(amountDepositInput,num);
         return this;
     }
 
-    @Step("Заполнение поля WithDrawl числом: {num} ")
+    @Step("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ WithDrawl пїЅпїЅпїЅпїЅпїЅпїЅ: {num} ")
     public AccountPage fillAmountWithDrawlInput(int num) {
-        wait.until(visibilityOf(amountWithDrawInput));
-        amountWithDrawInput.clear();
-        amountWithDrawInput.sendKeys(Integer.toString(num));
+        fillElement(amountWithDrawInput,num);
         return this;
     }
 
-    @Step("Получение баланса")
+    @Step("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ")
     public String getBalance() {
         return balance.getText();
     }
 
-    @Step("Получение названия банковских счетов")
+    @Step("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ")
     public String getAccountBillName() {
         wait.until(visibilityOf(accountSelector));
         return accountSelector.getText();
@@ -107,7 +96,7 @@ public class AccountPage extends BasePage {
         return accountName;
     }
 
-    @Step("Получение названия аккаунта")
+    @Step("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")
     public String getAccountNameFromPage() {
         wait.until(visibilityOf(accountName));
         return accountName.getText();

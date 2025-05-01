@@ -12,30 +12,42 @@ import page.TransactionPage;
 import static Util.ConfProperties.getProperty;
 
 
-@Epic("Тесты работоспособности элементов.")
+@Epic("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.")
     public class CustomerTest extends BaseTest {
         private AccountPage accountPage;
         private LoginPage loginPage;
         private TransactionPage transactionPage;
 
         @BeforeEach
-        @Step("Инициализация страниц")
+        @Step("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ")
         public void before() {
             accountPage = new AccountPage(driver);
             loginPage = new LoginPage(driver);
             transactionPage = new TransactionPage(driver);
         }
 
-        @Feature("Вход в аккаунт")
-        @Description("Тест работоспособности входа в аккаунт.")
+        @Feature("пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ")
+        @Description("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.")
         @Severity(value = SeverityLevel.NORMAL)
         @Test
         @Issue("XYZ-UI-customer-login")
-        @DisplayName("Т-001")
+        @DisplayName("T-001")
         public void customerLoginTest() {
             driver.get(getProperty("loginPageUrl"));
             loginPage.clickCustomerLoginButton().selectTestUser(getProperty("userName")).clickSubmitLoginButton();
             Assertions.assertEquals("1004\n1005\n1006", accountPage.getAccountBillName());
             Assertions.assertEquals("Harry Potter", accountPage.getAccountNameFromPage());
         }
+
+    @Feature("123")
+    @Description("123")
+    @Severity(value = SeverityLevel.NORMAL)
+    @Test
+    @Issue("XYZ-UI-customer-deposit")
+    @DisplayName("T-002")
+    public void customerDepositTest() {
+        driver.get(getProperty("loginPageUrl"));
+        loginPage.clickCustomerLoginButton().selectTestUser(getProperty("userName")).clickSubmitLoginButton();
+
+    }
 }

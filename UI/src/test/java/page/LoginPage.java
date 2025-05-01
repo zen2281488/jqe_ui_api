@@ -21,15 +21,13 @@ public class LoginPage extends BasePage {
 
     @Step("Клик по кнопке 'Customer Login'")
     public LoginPage clickCustomerLoginButton() {
-        wait.until(ExpectedConditions.visibilityOf(customerLoginButton));
-        customerLoginButton.click();
+        clickElement(customerLoginButton);
         return this;
     }
 
     @Step("Клик по кнопке 'Login'")
     public LoginPage clickSubmitLoginButton() {
-        wait.until(ExpectedConditions.visibilityOf(submitLoginButton));
-        submitLoginButton.click();
+        clickElement(submitLoginButton);
         return this;
     }
 
