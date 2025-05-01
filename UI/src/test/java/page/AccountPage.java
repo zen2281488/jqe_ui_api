@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
-public class AccountPage extends BasePage {
+public class AccountPage extends BasePage<AccountPage> {
 
     public AccountPage(WebDriver browser) {
         super(browser);
@@ -101,4 +101,6 @@ public class AccountPage extends BasePage {
         wait.until(visibilityOf(accountName));
         return accountName.getText();
     }
+
+
 }

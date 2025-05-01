@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class TransactionPage extends BasePage {
+public class TransactionPage extends BasePage<TransactionPage> {
     private final By tableRowsLocator = By.cssSelector("tr.ng-scope");
     private final SimpleDateFormat inputFormat = new SimpleDateFormat("MMM d, yyyy h:mm:ss a", Locale.ENGLISH);
     private final SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss", Locale.ENGLISH);
