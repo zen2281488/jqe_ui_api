@@ -25,15 +25,17 @@ public class BasePage<T extends BasePage<T>> {
         this.js = (JavascriptExecutor) browser;
         PageFactory.initElements(browser, this);
     }
-    protected void clickElement(WebElement element){
+    protected T clickElement(WebElement element){
         wait.until(visibilityOf(element));
         element.click();
+        return (T) this;
     }
 
-    protected void fillElement(WebElement element,Integer num){
+    protected T fillElement(WebElement element,Integer num){
         wait.until(visibilityOf(element));
         element.clear();
         element.sendKeys(Integer.toString(num));
+        return (T) this;
     }
 
     @Step("Ожидание элемента")

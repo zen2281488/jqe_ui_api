@@ -12,13 +12,13 @@ public class BaseTest {
     protected WebDriver driver;
 
     @AfterEach
-    @Step("Очиска данных")
+    @Step("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ")
     public void baseAfter() {
         closeWebdriver();
     }
 
     @BeforeEach
-    @Step("Инициализация Драйвера")
+    @Step("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")
     public void baseBefore() {
         driver = getWebdriver();
     }

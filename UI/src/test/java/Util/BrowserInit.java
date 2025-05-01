@@ -28,7 +28,7 @@ public class BrowserInit {
                             webdriver.set(new ChromeDriver(chromeOptions));
                             break;
                         default:
-                            throw new RuntimeException("Некорректное имя браузера");
+                            throw new RuntimeException("123");
                     }
             }
         return webdriver.get();

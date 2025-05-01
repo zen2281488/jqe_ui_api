@@ -10,6 +10,7 @@ import page.LoginPage;
 import page.TransactionPage;
 
 import static Util.ConfProperties.getProperty;
+import static Util.WriteUtils.writeTransactionsToCSV;
 
 
 @Epic("����� ����������������� ���������.")
@@ -46,6 +47,7 @@ import static Util.ConfProperties.getProperty;
         @Issue("XYZ-UI-customer-depositWithdrawl")
         @DisplayName("T-002")
         public void customerDepositWithdrawlTest() {
+            //todo Нужно сокрыть логин в метод, и вообще скорее всего сделать отдельный класс с этими тестами, чтобы в beforeEach сокрыть логин
             driver.get(getProperty("loginPageUrl"));
             loginPage.clickCustomerLoginButton().selectTestUser(getProperty("userName")).clickSubmitLoginButton();
 
@@ -53,6 +55,14 @@ import static Util.ConfProperties.getProperty;
             Assertions.assertEquals("0", accountPage.getBalance());
             driver.navigate().refresh();
             Assertions.assertEquals("0", accountPage.getBalance());
+            accountPage.clickTransactionsButton();
+            var transactions = transactionPage.getTransactions();
+            writeTransactionsToCSV(transactions);
+
+            Assertions.assertEquals(100, transactions.get(0).amount);
+            Assertions.assertEquals(100, transactions.get(1).amount);
+            Assertions.assertEquals("Credit", transactions.get(0).transactionType);
+            Assertions.assertEquals("Debit", transactions.get(1).transactionType);
         }
 
 }

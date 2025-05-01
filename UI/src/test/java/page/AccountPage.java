@@ -39,44 +39,37 @@ public class AccountPage extends BasePage<AccountPage> {
 
     @Step("���� �� ������ 'Deposit'")
     public AccountPage clickDepositButton() {
-        clickElement(depositButton);
-        return this;
+        return clickElement(depositButton);
     }
 
     @Step("���� �� ������ 'WithDrawl'")
     public AccountPage clickWithDrawlButton() {
-        clickElement(withDrawlButton);
-        return this;
+        return clickElement(withDrawlButton);
     }
 
     @Step("���� �� ������ 'Transactions'")
     public AccountPage clickTransactionsButton() {
-        clickElement(transactionsButton);
-        return this;
+        return clickElement(transactionsButton);
     }
 
     @Step("���� �� ������ �������� ���������� 'Withdrawl'")
     public AccountPage clickSubmitWithdrawlButton() {
-        clickElement(submitWithdrawButton);
-        return this;
+        return clickElement(submitWithdrawButton);
     }
 
     @Step("���� �� ������ �������� ���������� 'Deposit'")
     public AccountPage clickSubmitDepositButton() {
-        clickElement(submitDepositButton);
-        return this;
+        return clickElement(submitDepositButton);
     }
 
     @Step("���������� ���� Deposit ������: {num} ")
     public AccountPage fillAmountDepositInput(int num) {
-        fillElement(amountDepositInput,num);
-        return this;
+        return fillElement(amountDepositInput,num);
     }
 
     @Step("���������� ���� WithDrawl ������: {num} ")
     public AccountPage fillAmountWithDrawlInput(int num) {
-        fillElement(amountWithDrawInput,num);
-        return this;
+        return fillElement(amountWithDrawInput,num);
     }
 
     @Step("��������� �������")

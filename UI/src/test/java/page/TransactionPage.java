@@ -3,6 +3,7 @@ package page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pojo.Transaction;
 
@@ -17,7 +18,8 @@ public class TransactionPage extends BasePage<TransactionPage> {
     private final By tableRowsLocator = By.cssSelector("tr.ng-scope");
     private final SimpleDateFormat inputFormat = new SimpleDateFormat("MMM d, yyyy h:mm:ss a", Locale.ENGLISH);
     private final SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss", Locale.ENGLISH);
-
+    @FindBy(css = "[ng-click^='reset()']")
+    private WebElement resetButton;
     public TransactionPage(WebDriver browser) {
         super(browser);
     }
@@ -47,5 +49,9 @@ public class TransactionPage extends BasePage<TransactionPage> {
             }
         }
         return null;
+    }
+
+    public TransactionPage clickReset(){
+        return clickElement(resetButton);
     }
 }

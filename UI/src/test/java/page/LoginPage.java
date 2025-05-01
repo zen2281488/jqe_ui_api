@@ -21,14 +21,12 @@ public class LoginPage extends BasePage<LoginPage> {
 
     @Step("Клик по кнопке 'Customer Login'")
     public LoginPage clickCustomerLoginButton() {
-        clickElement(customerLoginButton);
-        return this;
+        return clickElement(customerLoginButton);
     }
 
     @Step("Клик по кнопке 'Login'")
     public LoginPage clickSubmitLoginButton() {
-        clickElement(submitLoginButton);
-        return this;
+        return clickElement(submitLoginButton);
     }
 
     @Step("Выбор Имени: {userName} в селекторе")
