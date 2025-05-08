@@ -94,6 +94,23 @@ public class AccountPage extends BasePage<AccountPage> {
         wait.until(visibilityOf(accountName));
         return accountName.getText();
     }
+    public AccountPage submitDepositButtonIsVisible() {
+        wait.until(visibilityOf(submitDepositButton));
+        return this;
+    }
 
+    public AccountPage depositInputIsVisible() {
+        wait.until(visibilityOf(amountDepositInput));
+        return this;
+    }
 
+    public AccountPage submitWithdrawButtonIsVisible() {
+        wait.until(visibilityOf(submitWithdrawButton));
+        return this;
+    }
+
+    public AccountPage withdrawInputIsVisible() {
+        wait.until(visibilityOf(amountWithDrawInput));
+        return this;
+    }
 }

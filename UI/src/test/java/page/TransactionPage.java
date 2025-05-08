@@ -1,5 +1,6 @@
 package page;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,9 +21,13 @@ public class TransactionPage extends BasePage<TransactionPage> {
     private final SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy HH:mm:ss", Locale.ENGLISH);
     @FindBy(css = "[ng-click^='reset()']")
     private WebElement resetButton;
+    @FindBy(css = "[ng-click=\"back()\"]")
+    private WebElement backButton;
     public TransactionPage(WebDriver browser) {
         super(browser);
     }
+    @FindBy(css = "[ng-click^=\"sortType = 'date';\"]")
+    private WebElement tableHead;
 
     public List<Transaction> getTransactions() {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(tableRowsLocator));
@@ -50,8 +55,20 @@ public class TransactionPage extends BasePage<TransactionPage> {
         }
         return null;
     }
-
+    @Step("Клик по кнопке 'Reset' ожидание появления кнопки")
     public TransactionPage clickReset(){
+        wait.until(ExpectedConditions.visibilityOf(resetButton));
         return clickElement(resetButton);
+    }
+
+    @Step("Клик по кнопке 'Back'")
+    public TransactionPage clickBack(){
+        wait.until(ExpectedConditions.visibilityOf(backButton));
+        return clickElement(backButton);
+    }
+
+    public TransactionPage tableHeadIsVisible(){
+        wait.until(ExpectedConditions.visibilityOf(backButton));
+        return this;
     }
 }

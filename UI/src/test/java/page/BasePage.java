@@ -43,4 +43,5 @@ public class BasePage<T extends BasePage<T>> {
         wait.until(visibilityOf(element));
         return (T) this;
     }
+
 }
