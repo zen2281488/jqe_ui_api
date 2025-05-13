@@ -14,6 +14,8 @@ public class LoginPage extends BasePage<LoginPage> {
 
     @FindBy(css = "[ng-click^=customer]")
     private WebElement customerLoginButton;
+    @FindBy(css = "[ng-click^=manager]")
+    private WebElement managerLoginButton;
     @FindBy(id = "userSelect")
     private WebElement yourNameSelector;
     @FindBy(css = ".btn-default")
@@ -28,10 +30,14 @@ public class LoginPage extends BasePage<LoginPage> {
     public LoginPage clickSubmitLoginButton() {
         return clickElement(submitLoginButton);
     }
+    @Step("Клик по кнопке 'Bank Manager Login'")
+    public LoginPage clickManagerLoginButton() {
+        return clickElement(managerLoginButton);
+    }
 
     @Step("Выбор Имени: {userName} в селекторе")
     public LoginPage selectTestUser(String userName) {
-        wait.until(ExpectedConditions.visibilityOf(yourNameSelector));
+        waitElement(yourNameSelector);
         new Select(yourNameSelector).selectByVisibleText(userName);
         return this;
     }

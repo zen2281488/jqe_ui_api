@@ -1,6 +1,7 @@
 package page;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +18,7 @@ public class BasePage<T extends BasePage<T>> {
     protected WebDriverWait wait;
     protected Actions action;
     protected JavascriptExecutor js;
+    protected Alert alert;
 
     public BasePage(WebDriver browser) {
         this.browser = browser;
@@ -37,7 +39,12 @@ public class BasePage<T extends BasePage<T>> {
         element.sendKeys(Integer.toString(num));
         return (T) this;
     }
-
+    protected T fillElement(WebElement element,String string){
+        wait.until(visibilityOf(element));
+        element.clear();
+        element.sendKeys(string);
+        return (T) this;
+    }
     @Step("Ожидание элемента")
     public T waitElement(WebElement element) {
         wait.until(visibilityOf(element));

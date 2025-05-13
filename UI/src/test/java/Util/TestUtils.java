@@ -7,9 +7,15 @@ import page.LoginPage;
 import static Util.ConfProperties.getProperty;
 
 public class TestUtils {
-    @Step("Авторизация")
-    public static void authAccount(WebDriver driver, LoginPage loginPage) {
+    @Step("Авторизация в личный кабинет клиента")
+    public static void authUserAccount(WebDriver driver, LoginPage loginPage) {
         driver.get(getProperty("loginPageUrl"));
         loginPage.clickCustomerLoginButton().selectTestUser(getProperty("userName")).clickSubmitLoginButton();
+    }
+
+    @Step("Авторизация в личный кабинет менеджера")
+    public static void authManagerAccount(WebDriver driver, LoginPage loginPage) {
+        driver.get(getProperty("loginPageUrl"));
+        loginPage.clickManagerLoginButton();
     }
 }
