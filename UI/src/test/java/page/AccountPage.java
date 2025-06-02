@@ -36,6 +36,8 @@ public class AccountPage extends BasePage<AccountPage> {
     private WebElement accountSelector;
     @FindBy(css = "span.ng-binding")
     private WebElement accountName;
+    @FindBy(css = ".center strong:nth-child(3)")
+    private WebElement currency;
 
     @Step("���� �� ������ 'Deposit'")
     public AccountPage clickDepositButton() {
@@ -67,13 +69,24 @@ public class AccountPage extends BasePage<AccountPage> {
         return fillElement(amountDepositInput,num);
     }
 
+    @Step("���������� ���� Deposit ������: {num} ")
+    public AccountPage fillAmountDepositInput(String num) {
+        return fillElement(amountDepositInput,num);
+    }
+
     @Step("���������� ���� WithDrawl ������: {num} ")
     public AccountPage fillAmountWithDrawlInput(int num) {
         return fillElement(amountWithDrawInput,num);
     }
+    @Step("���������� ���� Deposit ������: {num} ")
+    public AccountPage fillAmountWithDrawlInput(String num) {
+        return fillElement(amountWithDrawInput,num);
+    }
+
 
     @Step("��������� �������")
     public String getBalance() {
+        wait.until(visibilityOf(balance));
         return balance.getText();
     }
 
@@ -112,5 +125,11 @@ public class AccountPage extends BasePage<AccountPage> {
     public AccountPage withdrawInputIsVisible() {
         wait.until(visibilityOf(amountWithDrawInput));
         return this;
+    }
+
+    @Step("Получение валюты")
+    public String getCurrency() {
+        wait.until(visibilityOf(currency));
+        return currency.getText();
     }
 }

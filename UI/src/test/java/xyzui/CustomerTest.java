@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.Alert;
 import page.AccountPage;
 import page.BankManagerPage;
@@ -12,8 +14,7 @@ import page.LoginPage;
 import page.TransactionPage;
 
 import static Util.ConfProperties.getProperty;
-import static Util.TestUtils.authManagerAccount;
-import static Util.TestUtils.authUserAccount;
+import static Util.TestUtils.*;
 import static Util.WriteUtils.*;
 
 
@@ -144,6 +145,52 @@ public class CustomerTest extends BaseTest {
         Assertions.assertTrue(customers.stream()
                 .anyMatch(customer -> "123".equals(customer.postCode)));
 
+    }
+
+    @Feature("Снятие и внесение депозита")
+    @Description("Тестирование внесения депозита (Негативный кейс)")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Issue("XYZ-UI-customer-deposit-N")
+    @DisplayName("T-008")
+    @ParameterizedTest(name = "Попытка внести невалидную сумму: \"{0}\"")
+    @ValueSource(strings = {"-100", "abc", "0", "", " ", "100,50", "#$%"})
+    public void customerDepositInvalidAmountTest(String invalidAmount) {
+        authUserAccount(driver, loginPage);
+        int oldBalance = Integer.parseInt(accountPage.getBalance());
+        accountPage.clickDepositButton().fillAmountDepositInput(invalidAmount).clickSubmitDepositButton();
+        Assertions.assertEquals(oldBalance, Integer.parseInt(accountPage.getBalance()));
+    }
+
+    @Feature("Снятие и внесение депозита")
+    @Description("Тестирование снятия депозита (Негативный кейс)")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Issue("XYZ-UI-customer-withdrawl-N")
+    @DisplayName("T-009")
+    @ParameterizedTest(name = "Попытка снятие невалидной суммы: \"{0}\"")
+    @ValueSource(strings = {"-100", "abc", "0", "", " ", "100,50", "#$%"})
+    public void customerWithdrawlInvalidAmountTest(String invalidAmount) {
+        authUserAccount(driver, loginPage);
+        int oldBalance = Integer.parseInt(accountPage.getBalance());
+        accountPage.clickWithDrawlButton().fillAmountWithDrawlInput(invalidAmount).clickSubmitWithdrawlButton();
+        Assertions.assertEquals(oldBalance, Integer.parseInt(accountPage.getBalance()));
+    }
+
+    @Feature("Аккаунт клиента")
+    @Description("Тестирование выбора аккаунта(счета) клиента")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Test
+    @Issue("XYZ-UI-customer-select-account")
+    @DisplayName("T-010")
+    public void selectAccountTest() {
+        authUserAccount(driver, loginPage);
+        sendTestDeposit(driver, accountPage);
+        int oldBalance = Integer.parseInt(accountPage.getBalance());
+        String oldCurrency = accountPage.getCurrency();
+        accountPage.clickAccountSelector("1005");
+        String newCurrency = accountPage.getCurrency();
+        Assertions.assertNotEquals(oldBalance, Integer.parseInt(accountPage.getBalance()));
+        Assertions.assertNotEquals(oldCurrency, newCurrency);
+        Assertions.assertEquals("Pound", newCurrency);
     }
 
 }
