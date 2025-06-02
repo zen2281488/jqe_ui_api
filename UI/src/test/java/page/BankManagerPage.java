@@ -43,7 +43,7 @@ public class BankManagerPage extends BasePage<BankManagerPage> {
     @FindBy(css = "[ng-click^=showCust]")
     private WebElement customersButton;
 
-    @Step("Получение списка клиентов")
+    @Step("РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РєР»РёРµРЅС‚РѕРІ")
     public List<Customers> getCustomers() {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(tableRowsLocator));
         return browser.findElements(tableRowsLocator).stream()
@@ -65,35 +65,35 @@ public class BankManagerPage extends BasePage<BankManagerPage> {
         return null;
     }
 
-    @Step("Ожидание отображения кнопки 'Add Customer'")
+    @Step("РћР¶РёРґР°РЅРёРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєРЅРѕРїРєРё 'Add Customer'")
     public WebElement getAddCustomerButton() {
         waitElement(addCustomerButton);
         return addCustomerButton;
     }
 
-    @Step("Ожидание отображения кнопки 'Open Account'")
+    @Step("РћР¶РёРґР°РЅРёРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєРЅРѕРїРєРё 'Open Account'")
     public WebElement getOpenAccountButton() {
         waitElement(openAccountButton);
         return openAccountButton;
     }
 
-    @Step("Ожидание отображения кнопки 'Customers'")
+    @Step("РћР¶РёРґР°РЅРёРµ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РєРЅРѕРїРєРё 'Customers'")
     public WebElement getCustomersButton() {
         waitElement(customersButton);
         return customersButton;
     }
 
-    @Step("Клик по кнопке 'Add Customer'")
+    @Step("РљР»РёРє РїРѕ РєРЅРѕРїРєРµ 'Add Customer'")
     public BankManagerPage clickAddCustomerButton() {
         return clickElement(addCustomerButton);
     }
 
-    @Step("Клик по кнопке 'Customers'")
+    @Step("РљР»РёРє РїРѕ РєРЅРѕРїРєРµ 'Customers'")
     public BankManagerPage clickCustomersButton() {
         return clickElement(customersButton);
     }
 
-    @Step("Заполнение формы нового клиента: {firstName} {lastName}, индекс: {postCode}")
+    @Step("Р—Р°РїРѕР»РЅРµРЅРёРµ С„РѕСЂРјС‹ РЅРѕРІРѕРіРѕ РєР»РёРµРЅС‚Р°: {firstName} {lastName}, РёРЅРґРµРєСЃ: {postCode}")
     public BankManagerPage fillNewCustomerForm(String firstName, String lastName, String postCode) {
         waitElement(firstNameInput);
         fillElement(firstNameInput, firstName);
@@ -102,7 +102,7 @@ public class BankManagerPage extends BasePage<BankManagerPage> {
         return clickElement(addCustomerSubmitButton);
     }
 
-    @Step("Ожидание появления алерта")
+    @Step("РћР¶РёРґР°РЅРёРµ РїРѕСЏРІР»РµРЅРёСЏ Р°Р»РµСЂС‚Р°")
     public Alert waitAlert() {
         return wait.until(ExpectedConditions.alertIsPresent());
     }

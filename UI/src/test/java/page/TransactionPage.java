@@ -34,7 +34,7 @@ public class TransactionPage extends BasePage<TransactionPage> {
         super(browser);
     }
 
-    @Step("Получение списка транзакций со страницы")
+    @Step("РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° С‚СЂР°РЅР·Р°РєС†РёР№ СЃРѕ СЃС‚СЂР°РЅРёС†С‹")
     public List<Transaction> getTransactions() {
         wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(tableRowsLocator));
         return browser.findElements(tableRowsLocator)
@@ -61,19 +61,19 @@ public class TransactionPage extends BasePage<TransactionPage> {
         return null;
     }
 
-    @Step("Клик по кнопке 'Reset'")
+    @Step("РљР»РёРє РїРѕ РєРЅРѕРїРєРµ 'Reset'")
     public TransactionPage clickReset() {
         wait.until(ExpectedConditions.visibilityOf(resetButton));
         return clickElement(resetButton);
     }
 
-    @Step("Клик по кнопке 'Back'")
+    @Step("РљР»РёРє РїРѕ РєРЅРѕРїРєРµ 'Back'")
     public TransactionPage clickBack() {
         wait.until(ExpectedConditions.visibilityOf(backButton));
         return clickElement(backButton);
     }
 
-    @Step("Проверка видимости заголовка таблицы")
+    @Step("РџСЂРѕРІРµСЂРєР° РІРёРґРёРјРѕСЃС‚Рё Р·Р°РіРѕР»РѕРІРєР° С‚Р°Р±Р»РёС†С‹")
     public TransactionPage tableHeadIsVisible() {
         wait.until(ExpectedConditions.visibilityOf(tableHead));
         return this;
