@@ -8,16 +8,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 public class LoginPage extends BasePage<LoginPage> {
+
     public LoginPage(WebDriver browser) {
         super(browser);
     }
 
     @FindBy(css = "[ng-click^=customer]")
     private WebElement customerLoginButton;
+
     @FindBy(css = "[ng-click^=manager]")
     private WebElement managerLoginButton;
+
     @FindBy(id = "userSelect")
     private WebElement yourNameSelector;
+
     @FindBy(css = ".btn-default")
     private WebElement submitLoginButton;
 
@@ -26,19 +30,20 @@ public class LoginPage extends BasePage<LoginPage> {
         return clickElement(customerLoginButton);
     }
 
-    @Step("Клик по кнопке 'Login'")
-    public LoginPage clickSubmitLoginButton() {
-        return clickElement(submitLoginButton);
-    }
     @Step("Клик по кнопке 'Bank Manager Login'")
     public LoginPage clickManagerLoginButton() {
         return clickElement(managerLoginButton);
     }
 
-    @Step("Выбор Имени: {userName} в селекторе")
+    @Step("Выбор пользователя из списка: {userName}")
     public LoginPage selectTestUser(String userName) {
         waitElement(yourNameSelector);
         new Select(yourNameSelector).selectByVisibleText(userName);
         return this;
+    }
+
+    @Step("Клик по кнопке входа 'Login'")
+    public LoginPage clickSubmitLoginButton() {
+        return clickElement(submitLoginButton);
     }
 }

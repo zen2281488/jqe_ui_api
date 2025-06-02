@@ -39,95 +39,101 @@ public class AccountPage extends BasePage<AccountPage> {
     @FindBy(css = ".center strong:nth-child(3)")
     private WebElement currency;
 
-    @Step("���� �� ������ 'Deposit'")
+    @Step("Нажатие на кнопку 'Deposit'")
     public AccountPage clickDepositButton() {
         return clickElement(depositButton);
     }
 
-    @Step("���� �� ������ 'WithDrawl'")
+    @Step("Нажатие на кнопку 'Withdrawl'")
     public AccountPage clickWithDrawlButton() {
         return clickElement(withDrawlButton);
     }
 
-    @Step("���� �� ������ 'Transactions'")
+    @Step("Нажатие на кнопку 'Transactions'")
     public AccountPage clickTransactionsButton() {
         return clickElement(transactionsButton);
     }
 
-    @Step("���� �� ������ �������� ���������� 'Withdrawl'")
+    @Step("Нажатие на кнопку подтверждения 'Withdrawl'")
     public AccountPage clickSubmitWithdrawlButton() {
         return clickElement(submitWithdrawButton);
     }
 
-    @Step("���� �� ������ �������� ���������� 'Deposit'")
+    @Step("Нажатие на кнопку подтверждения 'Deposit'")
     public AccountPage clickSubmitDepositButton() {
         return clickElement(submitDepositButton);
     }
 
-    @Step("���������� ���� Deposit ������: {num} ")
+    @Step("Ввод суммы депозита: {num}")
     public AccountPage fillAmountDepositInput(int num) {
-        return fillElement(amountDepositInput,num);
+        return fillElement(amountDepositInput, num);
     }
 
-    @Step("���������� ���� Deposit ������: {num} ")
+    @Step("Ввод суммы депозита: {num}")
     public AccountPage fillAmountDepositInput(String num) {
-        return fillElement(amountDepositInput,num);
+        return fillElement(amountDepositInput, num);
     }
 
-    @Step("���������� ���� WithDrawl ������: {num} ")
+    @Step("Ввод суммы снятия: {num}")
     public AccountPage fillAmountWithDrawlInput(int num) {
-        return fillElement(amountWithDrawInput,num);
+        return fillElement(amountWithDrawInput, num);
     }
-    @Step("���������� ���� Deposit ������: {num} ")
+
+    @Step("Ввод суммы снятия: {num}")
     public AccountPage fillAmountWithDrawlInput(String num) {
-        return fillElement(amountWithDrawInput,num);
+        return fillElement(amountWithDrawInput, num);
     }
 
-
-    @Step("��������� �������")
+    @Step("Получение баланса")
     public String getBalance() {
         wait.until(visibilityOf(balance));
         return balance.getText();
     }
 
-    @Step("��������� �������� ���������� ������")
+    @Step("Получение имени счёта из выпадающего списка")
     public String getAccountBillName() {
         wait.until(visibilityOf(accountSelector));
         return accountSelector.getText();
     }
 
+    @Step("Выбор счёта: {accountName}")
     public String clickAccountSelector(String accountName) {
         wait.until(visibilityOf(accountSelector));
         new Select(accountSelector).selectByVisibleText(accountName);
         return accountName;
     }
 
-    @Step("��������� �������� ��������")
+    @Step("Получение имени счёта со страницы")
     public String getAccountNameFromPage() {
         wait.until(visibilityOf(accountName));
         return accountName.getText();
     }
+
+    @Step("Проверка видимости кнопки подтверждения депозита")
     public AccountPage submitDepositButtonIsVisible() {
         wait.until(visibilityOf(submitDepositButton));
         return this;
     }
 
+    @Step("Проверка видимости поля ввода суммы депозита")
     public AccountPage depositInputIsVisible() {
         wait.until(visibilityOf(amountDepositInput));
         return this;
     }
 
+    @Step("Проверка видимости кнопки подтверждения снятия")
     public AccountPage submitWithdrawButtonIsVisible() {
         wait.until(visibilityOf(submitWithdrawButton));
         return this;
     }
 
+    @Step("Проверка видимости поля ввода суммы снятия")
     public AccountPage withdrawInputIsVisible() {
         wait.until(visibilityOf(amountWithDrawInput));
         return this;
     }
 
-    @Step("Получение валюты")
+    @Step("Получение валюты счёта")
     public String getCurrency() {
         wait.until(visibilityOf(currency));
         return currency.getText();
