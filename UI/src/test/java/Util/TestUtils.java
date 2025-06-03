@@ -8,20 +8,27 @@ import page.LoginPage;
 import static Util.ConfProperties.getProperty;
 
 public class TestUtils {
-    @Step("Авторизация в личный кабинет клиента")
+
+    @Step("РђРІС‚РѕСЂРёР·Р°С†РёСЏ РїРѕРґ РѕР±С‹С‡РЅС‹Рј РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј")
     public static void authUserAccount(WebDriver driver, LoginPage loginPage) {
         driver.get(getProperty("loginPageUrl"));
-        loginPage.clickCustomerLoginButton().selectTestUser(getProperty("userName")).clickSubmitLoginButton();
+        loginPage
+                .clickCustomerLoginButton()
+                .selectTestUser(getProperty("userName"))
+                .clickSubmitLoginButton();
     }
 
-    @Step("Авторизация в личный кабинет менеджера")
+    @Step("РђРІС‚РѕСЂРёР·Р°С†РёСЏ РїРѕРґ РјРµРЅРµРґР¶РµСЂРѕРј")
     public static void authManagerAccount(WebDriver driver, LoginPage loginPage) {
         driver.get(getProperty("loginPageUrl"));
         loginPage.clickManagerLoginButton();
     }
 
-    @Step("Внесение депозита")
+    @Step("Р’РЅРµСЃРµРЅРёРµ С‚РµСЃС‚РѕРІРѕРіРѕ РґРµРїРѕР·РёС‚Р° РЅР° СЃСѓРјРјСѓ 100")
     public static void sendTestDeposit(WebDriver driver, AccountPage accountPage) {
-        accountPage.clickDepositButton().fillAmountDepositInput("100").clickSubmitDepositButton();
+        accountPage
+                .clickDepositButton()
+                .fillAmountDepositInput("100")
+                .clickSubmitDepositButton();
     }
 }
