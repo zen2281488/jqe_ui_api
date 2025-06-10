@@ -43,7 +43,10 @@ jobs:
         if: always()
         run: |
           mkdir -p combined-allure-results
-          find . -type d -path "*/target/allure-results" -exec cp -r {}/* combined-allure-results/ \; || echo "No allure-results found"
+          find . -type d -path "*/target/allure-results" | while read d; do
+            echo "Copying results from: $d"
+            cp -r "$d"/* combined-allure-results/ || echo "Nothing to copy from $d"
+          done
 
       - name: Generate combined Allure report
         if: always()
