@@ -32,8 +32,8 @@ jobs:
         run: mvn clean test
 
       - name: Get Allure history
-        if: always()
         uses: actions/checkout@v2
+        if: always()
         continue-on-error: true
         with:
           ref: gh-pages
@@ -43,20 +43,27 @@ jobs:
         if: always()
         run: |
           mkdir -p combined-allure-results
-          find . -type d -path "*/target/allure-results" -exec cp -r {}/* combined-allure-results/ \;
+          find . -type d -path "*/target/allure-results" -exec cp -r {}/* combined-allure-results/ \; || echo "No allure-results found"
 
       - name: Generate combined Allure report
         if: always()
         run: |
-          mkdir -p combined-allure-report
           mvn io.qameta.allure:allure-maven:2.12.0:report \
             -Dallure.results.directory=combined-allure-results \
             -Dallure.report.directory=combined-allure-report
+
+      - name: Debug report contents
+        if: always()
+        run: |
+          echo "=== Allure Results ==="
+          ls -al combined-allure-results || echo "No results found"
+          echo "=== Allure Report ==="
+          ls -al combined-allure-report || echo "No report found"
 
       - name: Publish Allure report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ github.workspace }}/combined-allure-report
           publish_branch: gh-pages
-          publish_dir: ./combined-allure-report
