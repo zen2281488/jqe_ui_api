@@ -1,45 +1,46 @@
 package Util;
 
-
-import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.concurrent.Semaphore;
 
 import static Util.ConfProperties.getBoolProperty;
-import static Util.ConfProperties.getProperty;
 
 public class BrowserInit {
+    private static final int poolSize = Integer.parseInt(
+            System.getenv().getOrDefault("TEST_PARALLELISM", "4")
+    );    private static final Semaphore semaphore = new Semaphore(poolSize);
     private static final ThreadLocal<WebDriver> webdriver = new ThreadLocal<>();
 
     public static WebDriver getWebdriver() {
         if (webdriver.get() == null) {
-                    switch (getProperty("browserName")) {
-                        case "chrome":
-                            ChromeOptions chromeOptions = new ChromeOptions()
-                                    .addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
-                            if (getBoolProperty("headlessMode")) {
-                                chromeOptions.addArguments("--headless=new");
-                            }
-                            webdriver.set(new ChromeDriver(chromeOptions));
-                            break;
-                        default:
-                            throw new RuntimeException("123");
-                    }
+            try {
+                semaphore.acquire();
+            } catch (InterruptedException e) {
+                throw new RuntimeException("Could not acquire semaphore", e);
             }
+
+            ChromeOptions chromeOptions = new ChromeOptions()
+                    .addArguments("--no-sandbox", "--disable-dev-shm-usage", "window-size=1220,880");
+
+            if (getBoolProperty("headlessMode")) {
+                chromeOptions.addArguments("--headless=new");
+            }
+
+            webdriver.set(new ChromeDriver(chromeOptions));
+        }
         return webdriver.get();
     }
 
-
     public static synchronized void closeWebdriver() {
-        if (webdriver.get() != null) {
-            webdriver.get().quit();
+        WebDriver driver = webdriver.get();
+        if (driver != null) {
+            driver.quit();
             webdriver.remove();
+            semaphore.release();
         }
     }
-
 }
+

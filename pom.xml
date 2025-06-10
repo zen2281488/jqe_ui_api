@@ -22,10 +22,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-engine</artifactId>
-            <version>1.10.0</version>
-            <scope>test</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
@@ -33,12 +32,7 @@
             <version>2.23.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.8.1</version>
-            <scope>test</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -70,18 +64,6 @@
                         <property>
                             <name>listener</name>
                             <value>io.qameta.allure.junit5.AllureJunit5</value>
-                        </property>
-                        <property>
-                            <name>junit.jupiter.execution.parallel.enabled</name>
-                            <value>true</value>
-                        </property>
-                        <property>
-                            <name>junit.jupiter.execution.parallel.mode.default</name>
-                            <value>concurrent</value>
-                        </property>
-                        <property>
-                            <name>junit.jupiter.execution.parallel.config.fixed.parallelism</name>
-                            <value>4</value>
                         </property>
                     </properties>
                     <systemPropertyVariables>
