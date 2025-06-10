@@ -43,11 +43,11 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Set permissions for Allure results
-        run: chmod -R 777 UI/target/allure-results
-
       - name: Generate Allure report
         run: mvn allure:report -pl UI
+
+      - name: Set permissions for Allure results
+        run: chmod -R 777 UI/target/allure-results
 
       - name: Publish Allure report to GitHub Pages
         if: always()
