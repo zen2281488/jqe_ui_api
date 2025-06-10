@@ -1,20 +1,16 @@
-name: Java CI with Maven
+name: Java CI with Allure Multi-Module Report
 
 on:
   push:
-    branches:
-      - '*'
-    tags:
-      - '*'
-    paths:
-      - '**'
-      - '!*.md'
+    branches: [ "*" ]
+    tags: [ "*" ]
+    paths: [ "**", "!*.md" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      TEST_PARALLELISM: 4  # управление семафором для WebDriver
+      TEST_PARALLELISM: 4
 
     steps:
       - name: Checkout code
@@ -32,8 +28,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
-      - name: Run tests
-        run: mvn clean test -pl UI
+      - name: Run tests (all modules)
+        run: mvn clean test
 
       - name: Get Allure history
         uses: actions/checkout@v2
@@ -43,18 +39,23 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Set permissions for Allure results
+      - name: Collect Allure results from all modules
         if: always()
-        run: chmod -R 777 UI/target/allure-results
+        run: |
+          mkdir -p combined-allure-results
+          find . -type d -path "*/target/allure-results" -exec cp -r {}/* combined-allure-results/ \;
 
-      - name: Generate Allure report
+      - name: Generate combined Allure report
         if: always()
-        run: mvn allure:report -pl UI
+        run: |
+          mvn io.qameta.allure:allure-maven:2.12.0:report \
+            -Dallure.results.directory=combined-allure-results \
+            -Dallure.report.directory=combined-allure-report
 
       - name: Publish Allure report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: /home/runner/work/jqe_ui_api/UI/target/site/allure-maven-plugin
+          publish_dir: combined-allure-report
           publish_branch: gh-pages
