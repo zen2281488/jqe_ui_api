@@ -32,8 +32,8 @@ jobs:
         run: mvn clean test
 
       - name: Get Allure history
-        uses: actions/checkout@v2
         if: always()
+        uses: actions/checkout@v2
         continue-on-error: true
         with:
           ref: gh-pages
@@ -48,6 +48,7 @@ jobs:
       - name: Generate combined Allure report
         if: always()
         run: |
+          mkdir -p combined-allure-report
           mvn io.qameta.allure:allure-maven:2.12.0:report \
             -Dallure.results.directory=combined-allure-results \
             -Dallure.report.directory=combined-allure-report
@@ -57,5 +58,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./combined-allure-report
           publish_branch: gh-pages
+          publish_dir: ./combined-allure-report
