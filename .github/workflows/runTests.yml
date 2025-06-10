@@ -44,9 +44,11 @@ jobs:
           path: gh-pages
 
       - name: Generate Allure report
+        if: always()
         run: mvn allure:report
 
       - name: Set permissions for Allure results
+        if: always()
         run: chmod -R 777 UI/target/allure-results
 
       - name: Publish Allure report to GitHub Pages
