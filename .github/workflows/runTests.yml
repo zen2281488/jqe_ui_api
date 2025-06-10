@@ -1,22 +1,19 @@
-name: Java CI with Allure Multi-Module Report
+name: Java CI with Allure + History
 
 on:
   push:
     branches: [ "*" ]
-    tags: [ "*" ]
     paths: [ "**", "!*.md" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      TEST_PARALLELISM: 4
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '17'
@@ -29,13 +26,12 @@ jobs:
           sudo apt-get install -y google-chrome-stable
 
       - name: Install Allure CLI
-        run: |
-          sudo npm install -g allure-commandline --unsafe-perm=true
+        run: sudo npm install -g allure-commandline --unsafe-perm=true
 
-      - name: Run tests (all modules)
+      - name: Run tests
         run: mvn clean test
 
-      - name: Get Allure history
+      - name: Checkout gh-pages branch
         uses: actions/checkout@v2
         if: always()
         continue-on-error: true
@@ -43,30 +39,29 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Collect Allure results from all modules
+      - name: Collect Allure results
         if: always()
         run: |
           mkdir -p combined-allure-results
           find . -type d -path "*/target/allure-results" | while read d; do
-            echo "Copying results from: $d"
-            cp -r "$d"/* combined-allure-results/ || echo "Nothing to copy from $d"
+            echo "Copying from $d"
+            cp -r "$d"/* combined-allure-results/ || echo "Nothing to copy"
           done
 
-      - name: Generate combined Allure report
+      - name: Generate Allure report
+        uses: simple-elf/allure-report-action@master
         if: always()
-        run: |
-          allure generate combined-allure-results --clean -o combined-allure-report
+        id: allure
+        with:
+          allure_results: combined-allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
 
-      - name: Debug report directory
-        if: always()
-        run: |
-          echo "=== Allure Report ==="
-          ls -la combined-allure-report || echo "No report found"
-
-      - name: Publish Allure report to GitHub Pages
+      - name: Deploy Allure report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: combined-allure-report
+          publish_dir: allure-history
           publish_branch: gh-pages
