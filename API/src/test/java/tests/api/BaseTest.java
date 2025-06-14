@@ -17,7 +17,7 @@ public abstract class BaseTest {
     protected static Car newLocalCar;
 
     static {
-        RestAssured.baseURI = ConfProperties.getPrivateProperty("baseUrl");
+        RestAssured.baseURI = System.getenv("BASE_URL");
         RestAssured.defaultParser = Parser.JSON;
     }
 
