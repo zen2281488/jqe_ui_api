@@ -15,7 +15,7 @@ public class HibernateSessionFactoryUtil {
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
-                Configuration configuration = new Configuration().setProperty("hibernate.connection.username", System.getProperty("DB_USER")).setProperty("hibernate.connection.password", System.getProperty("DB_PASSWORD")).configure();
+                Configuration configuration = new Configuration().setProperty("hibernate.connection.username", System.getenv("DB_USER")).setProperty("hibernate.connection.password", System.getenv("DB_PASSWORD")).configure();
                 configuration.addAnnotatedClass(Car.class);
                 configuration.addAnnotatedClass(House.class);
                 configuration.addAnnotatedClass(ParkingPlace.class);

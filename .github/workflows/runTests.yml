@@ -37,13 +37,7 @@ jobs:
 
       - name: Run tests
         run: |
-          mvn clean test -fail-at-end \
-            -DAPI_USER="${API_USER}" \
-            -DAPI_PASSWORD="${API_PASSWORD}" \
-            -DDB_USER="${DB_USER}" \
-            -DDB_PASSWORD="${DB_PASSWORD}" \
-            -DBASE_URL="${BASE_URL}"
-
+          mvn clean test -fail-at-end
       - name: Checkout gh-pages branch
         uses: actions/checkout@v2
         if: always()
