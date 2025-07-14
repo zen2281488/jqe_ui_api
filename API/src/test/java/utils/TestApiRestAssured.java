@@ -1,4 +1,4 @@
-package util.api;
+package utils;
 
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
@@ -8,7 +8,6 @@ import models.api.Car;
 import models.api.House;
 import models.api.User;
 import org.json.JSONObject;
-import utils.properties.ConfProperties;
 
 public class TestApiRestAssured {
 

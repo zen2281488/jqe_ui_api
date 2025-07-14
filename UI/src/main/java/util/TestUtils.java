@@ -1,11 +1,11 @@
-package Util;
+package util;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import page.AccountPage;
 import page.LoginPage;
 
-import static Util.ConfProperties.getProperty;
+import static util.ConfProperties.getProperty;
 
 public class TestUtils {
 

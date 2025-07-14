@@ -2,7 +2,7 @@ package tests.api;
 
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
-import util.api.TestApiRestAssured;
+import utils.TestApiRestAssured;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+@Epic("Тестирование API тестового полигона")
 public class BuySellTests extends BaseTest {
 
     @Feature("Покупка автомобиля")

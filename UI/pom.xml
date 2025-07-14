@@ -38,6 +38,12 @@
         <version>2.23.0</version>
         <scope>test</scope>
     </dependency>
+    <dependency>
+        <groupId>io.qameta.allure</groupId>
+        <artifactId>allure-junit5</artifactId>
+        <version>2.23.0</version>
+        <scope>provided</scope>
+    </dependency>
 </dependencies>
     <build>
         <plugins>
@@ -54,6 +60,7 @@
                     </properties>
                     <systemPropertyVariables>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        <junit.jupiter.execution.parallel.config.fixed.parallelism>2</junit.jupiter.execution.parallel.config.fixed.parallelism>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

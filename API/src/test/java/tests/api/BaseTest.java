@@ -1,6 +1,6 @@
 package tests.api;
 
-import util.api.TestApiRestAssured;
+import utils.TestApiRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import models.api.Car;
@@ -8,7 +8,6 @@ import models.api.House;
 import models.api.User;
 import org.junit.jupiter.api.BeforeAll;
 import utils.data.db.Create;
-import utils.properties.ConfProperties;
 
 public abstract class BaseTest {
     protected static String token;

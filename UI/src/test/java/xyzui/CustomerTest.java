@@ -13,12 +13,11 @@ import page.BankManagerPage;
 import page.LoginPage;
 import page.TransactionPage;
 
-import static Util.ConfProperties.getProperty;
-import static Util.TestUtils.*;
-import static Util.WriteUtils.*;
+import static util.ConfProperties.getProperty;
+import static util.TestUtils.*;
+import static util.WriteUtils.*;
 
-
-@Epic("����� ����������������� ���������.")
+@Epic("XYZ-Bank")
 public class CustomerTest extends BaseTest {
     private AccountPage accountPage;
     private LoginPage loginPage;
@@ -136,14 +135,11 @@ public class CustomerTest extends BaseTest {
         var customers = bankManagerPage.getCustomers();
         writeCustomersToCSV(customers);
 
-        Assertions.assertTrue(customers.stream()
-                .anyMatch(customer -> "testName".equals(customer.firstName)));
+        Assertions.assertTrue(customers.stream().anyMatch(customer -> "testName".equals(customer.firstName)));
 
-        Assertions.assertTrue(customers.stream()
-                .anyMatch(customer -> "testLastname".equals(customer.lastName)));
+        Assertions.assertTrue(customers.stream().anyMatch(customer -> "testLastname".equals(customer.lastName)));
 
-        Assertions.assertTrue(customers.stream()
-                .anyMatch(customer -> "123".equals(customer.postCode)));
+        Assertions.assertTrue(customers.stream().anyMatch(customer -> "123".equals(customer.postCode)));
 
     }
 

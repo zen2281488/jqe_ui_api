@@ -1,7 +1,6 @@
 package page;
 
 import io.qameta.allure.Step;
-import lombok.Getter;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
