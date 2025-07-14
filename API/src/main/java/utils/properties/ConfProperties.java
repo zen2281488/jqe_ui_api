@@ -9,20 +9,14 @@ import java.util.Properties;
 
 public class ConfProperties {
     private static final Properties commonProperties;
-    private static final Properties privateProperties;
-    private static final Logger logger = LogManager.getLogger(RuntimeException.class);
+    private static final Logger logger = LogManager.getLogger(ConfProperties.class);
 
     static {
         commonProperties = loadProperties("src/test/resources/conf.properties");
-        privateProperties = loadProperties("src/test/resources/confPrivate.properties");
     }
 
     public static String getCommonProperty(String key) {
         return commonProperties.getProperty(key);
-    }
-
-    public static String getPrivateProperty(String key) {
-        return privateProperties.getProperty(key);
     }
 
     public static boolean getCommonBoolProperty(String key) {
@@ -31,13 +25,6 @@ public class ConfProperties {
 
     public static int getCommonIntProperty(String key) {
         return Integer.parseInt(commonProperties.getProperty(key));
-    }
-
-    public static int getPrivateIntProperty(String key) {
-        return Integer.parseInt(commonProperties.getProperty(key));
-    }
-    public static boolean getPrivateBoolProperty(String key) {
-        return Boolean.parseBoolean(privateProperties.getProperty(key));
     }
 
     private static Properties loadProperties(String filePath) {
