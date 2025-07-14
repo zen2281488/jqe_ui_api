@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      API_USER: ${{ secrets.API_USER }}
+      API_PASSWORD: ${{ secrets.API_PASSWORD }}
+      DB_USER: ${{ secrets.API_USER }}
+      DB_PASSWORD: ${{ secrets.API_PASSWORD }}
       BASE_URL: ${{ secrets.BASE_URL }}
-      USERNAME: ${{ secrets.USERNAME }}
-      PASSWORD: ${{ secrets.PASSWORD }}
 
     steps:
       - name: Checkout code
