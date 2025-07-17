@@ -12,8 +12,8 @@ jobs:
     env:
       API_USER: ${{ secrets.API_USER }}
       API_PASSWORD: ${{ secrets.API_PASSWORD }}
-      DB_USER: ${{ secrets.API_USER }}
-      DB_PASSWORD: ${{ secrets.API_PASSWORD }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       BASE_URL: ${{ secrets.BASE_URL }}
 
     steps:
