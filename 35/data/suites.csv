@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"Тестирование создания автомобиля","1360","API-T-005","","Thu Jul 17 09:29:11 GMT 2025","broken","Thu Jul 17 09:29:13 GMT 2025","","tests.api.CreationTests","tests.api.CreationTests","createCarTest"
+"Тестирование покупки автомобиля","2580","API-T-001","","Thu Jul 17 09:29:07 GMT 2025","broken","Thu Jul 17 09:29:10 GMT 2025","","tests.api.BuySellTests","tests.api.BuySellTests","buyCarTest"
+"Тестирование создания дома с парковками","1395","API-T-004","","Thu Jul 17 09:29:10 GMT 2025","broken","Thu Jul 17 09:29:11 GMT 2025","","tests.api.CreationTests","tests.api.CreationTests","createHouseTest"
+"Тестирование заселения пользователя в дом","2139","API-T-002","","Thu Jul 17 09:29:10 GMT 2025","broken","Thu Jul 17 09:29:12 GMT 2025","","tests.api.BuySellTests","tests.api.BuySellTests","settleHouse"
+"Тестирование создания пользователя","2580","API-T-003","","Thu Jul 17 09:29:07 GMT 2025","broken","Thu Jul 17 09:29:10 GMT 2025","","tests.api.CreationTests","tests.api.CreationTests","createUserTest"
