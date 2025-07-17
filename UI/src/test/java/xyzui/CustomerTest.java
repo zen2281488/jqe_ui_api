@@ -25,7 +25,7 @@ public class CustomerTest extends BaseTest {
     private BankManagerPage bankManagerPage;
 
     @BeforeEach
-    @Step("������������� �������")
+    @Step("Создание экземпляров страниц")
     public void before() {
         accountPage = new AccountPage(driver);
         loginPage = new LoginPage(driver);
