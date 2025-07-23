@@ -1,34 +1,47 @@
 package utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import lombok.experimental.UtilityClass;
 import models.api.Car;
 import models.api.House;
 import models.api.User;
-import org.json.JSONObject;
 
-public class TestApiRestAssured {
+import java.util.HashMap;
+import java.util.Map;
+
+@UtilityClass
+public class RestAssuredUtils {
 
     private static String token;
 
     @Step("Получение токена авторизации")
     public static String getToken() {
-        token = RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(new JSONObject()
-                        .put("username", System.getenv("API_USER"))
-                        .put("password", System.getenv("API_PASSWORD"))
-                        .toString())
-                .when()
-                .post(System.getenv("BASE_URL") + "login")
-                .then()
-                .statusCode(202)
-                .extract()
-                .path("access_token")
-                .toString();
-        return token;
+        try {
+            Map<String, String> credentials = new HashMap<>();
+            credentials.put("username", System.getenv("API_USER"));
+            credentials.put("password", System.getenv("API_PASSWORD"));
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonBody = objectMapper.writeValueAsString(credentials);
+
+            token = RestAssured.given()
+                    .contentType(ContentType.JSON)
+                    .body(jsonBody)
+                    .when()
+                    .post(System.getenv("BASE_URL") + "login")
+                    .then()
+                    .statusCode(202)
+                    .extract()
+                    .path("access_token")
+                    .toString();
+            return token;
+        } catch (Exception e) {
+            throw new RuntimeException("Ошибка сериализации JSON при получении токена", e);
+        }
     }
 
     @Step("Формирование RestAssured спецификации с токеном")
