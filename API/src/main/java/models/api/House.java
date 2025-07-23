@@ -1,6 +1,5 @@
 package models.api;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -18,11 +17,10 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class House {
 
-    protected Integer floorCount, price;
+    private Integer floorCount;
+    private Integer price;
 
-    protected List<ParkingPlace> parkingPlaces;
-
-    protected Integer id;
-
-    protected List<User> lodgers;
+    private List<ParkingPlace> parkingPlaces;
+    private Integer id;
+    private List<User> lodgers;
 }

@@ -1,45 +1,48 @@
 package utils.db;
 
+import lombok.experimental.UtilityClass;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class DbDao {
+@UtilityClass
+public class DbUtils {
+
     public void save(Object entity) {
-        Transaction tx1 = null;
+        Transaction tx = null;
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            tx1 = session.beginTransaction();
+            tx = session.beginTransaction();
             session.save(entity);
-            tx1.commit();
+            tx.commit();
         } catch (HibernateException e) {
-            if (tx1 != null) tx1.rollback();
-            e.printStackTrace();
+            if (tx != null) tx.rollback();
+            throw new RuntimeException("Ошибка при сохранении записи: " + entity.getClass().getSimpleName(), e);
         }
     }
 
     public void update(Object entity) {
-        Transaction tx1 = null;
+        Transaction tx = null;
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            tx1 = session.beginTransaction();
+            tx = session.beginTransaction();
             session.update(entity);
-            tx1.commit();
+            tx.commit();
         } catch (HibernateException e) {
-            if (tx1 != null) tx1.rollback();
-            e.printStackTrace();
+            if (tx != null) tx.rollback();
+            throw new RuntimeException("Ошибка при обновлении записи: " + entity.getClass().getSimpleName(), e);
         }
     }
 
     public void delete(Object entity) {
-        Transaction tx1 = null;
+        Transaction tx = null;
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            tx1 = session.beginTransaction();
+            tx = session.beginTransaction();
             session.delete(entity);
-            tx1.commit();
+            tx.commit();
         } catch (HibernateException e) {
-            if (tx1 != null) tx1.rollback();
-            e.printStackTrace();
+            if (tx != null) tx.rollback();
+            throw new RuntimeException("Ошибка при удалении записи: " + entity.getClass().getSimpleName(), e);
         }
     }
 
@@ -47,20 +50,19 @@ public class DbDao {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM " + entityClass.getSimpleName(), entityClass).list();
         } catch (HibernateException e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException("Ошибка при получении всех записей для: " + entityClass.getSimpleName(), e);
         }
     }
 
     public <T> List<T> findAll(Class<T> entityClass, Integer parameter, String parameterName) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM " + entityClass.getSimpleName() + " WHERE :name = :num", entityClass)
-                    .setParameter("num", parameter)
-                    .setParameter("name", parameterName)
+            return session.createQuery(
+                            "FROM " + entityClass.getSimpleName() + " WHERE " + parameterName + " = :value", entityClass)
+                    .setParameter("value", parameter)
                     .list();
         } catch (HibernateException e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException("Ошибка при поиске по параметру '" + parameterName +
+                    "' для записи: " + entityClass.getSimpleName(), e);
         }
     }
 
@@ -70,8 +72,7 @@ public class DbDao {
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (HibernateException e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException("Ошибка при поиске по ID (" + id + ") для: " + entityClass.getSimpleName(), e);
         }
     }
 }
