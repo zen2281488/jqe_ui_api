@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ParkingPlace {
-    protected Integer id;
+    private Integer id;
 
     @JsonProperty("isWarm")
-    protected boolean isWarm;
+    private boolean isWarm;
     @JsonProperty("isCovered")
-    protected boolean isCovered;
+    private boolean isCovered;
 
-    protected Integer placesCount;
+    private Integer placesCount;
 
 }

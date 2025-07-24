@@ -9,22 +9,22 @@ public class ParkingPlace {
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    private Integer id;
 
     @Getter
     @Column (name = "is_covered")
-    protected boolean isCovered;
+    private boolean isCovered;
 
     @Getter
     @Column (name = "is_warm")
-    protected boolean isWarm;
+    private boolean isWarm;
 
     @Getter
     @Column (name = "places_count")
-    protected Integer placesCount;
+    private Integer placesCount;
 
     @Getter
     @ManyToOne
     @JoinColumn(name = "house_id", nullable = false)
-    protected House house;
+    private House house;
 }

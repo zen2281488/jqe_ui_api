@@ -9,24 +9,22 @@ import lombok.Getter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    private Integer id;
+    private Integer age;
 
-    protected Integer age;
+    @Column(name = "first_name")
+    private String firstName;
+    private Integer money;
 
-    @Column (name = "first_name")
-    protected String firstName;
+    @Column(name = "second_name")
+    private String secondName;
 
-    protected Integer money;
-
-    @Column (name = "second_name")
-    protected String secondName;
-
-    @Column (name = "sex")
-    protected boolean boolSex;
+    @Column(name = "sex")
+    private boolean boolSex;
 
     @ManyToOne
     @JoinColumn(name = "house_id", nullable = false)
-    protected House house;
+    private House house;
 
     public String getSex() {
         return boolSex ? "MALE" : "FEMALE";

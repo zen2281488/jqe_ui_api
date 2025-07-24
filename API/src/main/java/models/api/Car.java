@@ -13,14 +13,14 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Car {
 
-    protected String engineType, mark, model;
+    private String engineType;
+    private String mark;
+    private String model;
 
-    protected int price;
+    private int price;
 
-    protected Integer id;
-
-    protected Integer personId;
-
-    protected Integer engineTypeId;
+    private Integer id;
+    private Integer personId;
+    private Integer engineTypeId;
 
 }

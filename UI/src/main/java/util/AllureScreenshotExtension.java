@@ -7,14 +7,12 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-import static util.BrowserInit.getWebdriver;
-
 public class AllureScreenshotExtension implements AfterTestExecutionCallback {
 
     @Override
     public void afterTestExecution(ExtensionContext context) {
         if (context.getExecutionException().isPresent()) {
-            WebDriver driver = getWebdriver();
+            WebDriver driver = WebDriverExtension.getStoredDriver(context);
             if (driver != null) {
                 takeScreenshot(driver);
             }

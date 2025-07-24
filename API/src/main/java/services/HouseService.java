@@ -3,21 +3,19 @@ package services;
 import io.qameta.allure.Step;
 import models.db.House;
 import org.hibernate.Session;
-import utils.db.DbDao;
+import utils.db.DbUtils;
 import utils.db.HibernateSessionFactoryUtil;
 
 import java.util.List;
 
 public class HouseService {
 
-    private final DbDao housesDao = new DbDao();
-
     public HouseService() {
     }
 
     @Step("Найти дом по ID: {id}")
     public House findHouse(int id) {
-        return housesDao.findById(House.class, id);
+        return DbUtils.findById(House.class, id);
     }
 
     @Step("Найти дом с парковочными местами по ID: {id}")
@@ -28,28 +26,28 @@ public class HouseService {
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException("Не удалось найти дом с парковками по ID: " + id, e);
         }
     }
 
+
     @Step("Сохранить дом в БД")
     public void saveHouse(House house) {
-        housesDao.save(house);
+        DbUtils.save(house);
     }
 
     @Step("Удалить дом из БД")
     public void deleteHouse(House house) {
-        housesDao.delete(house);
+        DbUtils.delete(house);
     }
 
     @Step("Обновить данные дома в БД")
     public void updateHouse(House house) {
-        housesDao.update(house);
+        DbUtils.update(house);
     }
 
     @Step("Найти все дома в БД")
     public List<House> findAllHouses() {
-        return housesDao.findAll(House.class);
+        return DbUtils.findAll(House.class);
     }
 }

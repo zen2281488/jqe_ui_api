@@ -9,19 +9,16 @@ import lombok.Getter;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
-
-    protected String mark;
-
-    protected String model;
-
-    protected Integer price;
+    private Integer id;
+    private String mark;
+    private String model;
+    private Integer price;
 
     @ManyToOne
     @JoinColumn(name = "engine_type_id")
-    protected EngineType engineType;
+    private EngineType engineType;
 
     @Column (name = "person_id")
-    protected Integer personId;
+    private Integer personId;
 
 }

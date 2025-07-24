@@ -12,9 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
-    protected String firstName, secondName, sex;
-
-    protected int age, money;
-
-    protected int id;
+    private String firstName;
+    private String secondName;
+    private String sex;
+    private int age;
+    private int money;
+    private int id;
 }

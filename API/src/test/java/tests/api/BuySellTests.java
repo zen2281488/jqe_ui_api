@@ -1,18 +1,11 @@
 package tests.api;
-
 import io.qameta.allure.*;
-import org.junit.jupiter.api.DisplayName;
-import utils.TestApiRestAssured;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
-import services.HouseService;
-import services.UserService;
-import utils.data.api.Sort;
-
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import org.junit.jupiter.api.DisplayName;
+import utils.AssertionsUtils;
+import utils.RestAssuredUtils;
+import utils.data.api.SortUtils;
 
 @Epic("Тестирование API тестового полигона")
 public class BuySellTests extends BaseTest {
@@ -24,9 +17,9 @@ public class BuySellTests extends BaseTest {
     @DisplayName("API-T-001")
     @Test
     public void buyCarTest() {
-        var answerApiCar = TestApiRestAssured.createCar(newLocalCar);
-        var answerBuyCar = TestApiRestAssured.buyCar(TestApiRestAssured.createUser(newLocalUser).getId(), answerApiCar.getId());
-        var dbUser = new UserService().findUser(answerBuyCar.getId());
+        var answerApiCar = RestAssuredUtils.createCar(newLocalCar);
+        var answerBuyCar = RestAssuredUtils.buyCar(RestAssuredUtils.createUser(newLocalUser).getId(), answerApiCar.getId());
+        var dbUser = userService.findUser(answerBuyCar.getId());
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(newLocalUser.getFirstName(), answerBuyCar.getFirstName()),
@@ -53,31 +46,15 @@ public class BuySellTests extends BaseTest {
     @DisplayName("API-T-002")
     @Test
     public void settleHouse() {
-        var answerApiUser = TestApiRestAssured.createUser(newLocalUser);
-        var answerApiHouse = TestApiRestAssured.createHouse(newLocalHouse);
-        var answerBuyHouse = TestApiRestAssured.buyHouse(answerApiHouse.getId(), answerApiUser.getId());
-        var newHouseParkingPlaces = Sort.sortParkingPlace(newLocalHouse);
-        var answerBuyHouseParkingPlaces = Sort.sortParkingPlace(answerBuyHouse);
-        var dbHouse = new HouseService().findHouseWithParkingPlaces(answerApiHouse.getId());
-        var dbHouseParkingPlaces = Sort.sortParkingPlace(dbHouse);
+        var answerApiUser = RestAssuredUtils.createUser(newLocalUser);
+        var answerApiHouse = RestAssuredUtils.createHouse(newLocalHouse);
+        var answerBuyHouse = RestAssuredUtils.buyHouse(answerApiHouse.getId(), answerApiUser.getId());
 
-        Assertions.assertAll(IntStream.range(0, newHouseParkingPlaces.size())
-                .boxed()
-                .flatMap(i -> Stream.of(
-                        () -> Assertions.assertEquals(
-                                newHouseParkingPlaces.get(i).isWarm(),
-                                answerBuyHouseParkingPlaces.get(i).isWarm()
-                        ),
-                        () -> Assertions.assertEquals(
-                                newHouseParkingPlaces.get(i).isCovered(),
-                                answerBuyHouseParkingPlaces.get(i).isCovered()
-                        ),
-                        (Executable) () -> Assertions.assertEquals(
-                                newHouseParkingPlaces.get(i).getPlacesCount(),
-                                answerBuyHouseParkingPlaces.get(i).getPlacesCount()
-                        )
-                ))
-                .collect(Collectors.toList()));
+        var expectedParking = SortUtils.sortParkingPlace(newLocalHouse);
+        var apiParking = SortUtils.sortParkingPlace(answerBuyHouse);
+
+        var dbHouse = houseService.findHouseWithParkingPlaces(answerApiHouse.getId());
+        var dbParking = SortUtils.sortParkingPlace(dbHouse);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(newLocalUser.getFirstName(), answerBuyHouse.getLodgers().get(0).getFirstName()),
@@ -92,22 +69,7 @@ public class BuySellTests extends BaseTest {
                 () -> Assertions.assertEquals(answerBuyHouse.getPrice(), dbHouse.getPrice())
         );
 
-        Assertions.assertAll(IntStream.range(0, newHouseParkingPlaces.size())
-                .boxed()
-                .flatMap(i -> Stream.of(
-                        () -> Assertions.assertEquals(
-                                answerBuyHouseParkingPlaces.get(i).isWarm(),
-                                dbHouseParkingPlaces.get(i).isWarm()
-                        ),
-                        () -> Assertions.assertEquals(
-                                answerBuyHouseParkingPlaces.get(i).isCovered(),
-                                dbHouseParkingPlaces.get(i).isCovered()
-                        ),
-                        (Executable) () -> Assertions.assertEquals(
-                                answerBuyHouseParkingPlaces.get(i).getPlacesCount(),
-                                dbHouseParkingPlaces.get(i).getPlacesCount()
-                        )
-                ))
-                .collect(Collectors.toList()));
+        AssertionsUtils.assertApiResponseMatchesRequest(expectedParking, apiParking);
+        AssertionsUtils.assertDbMatchesApi(expectedParking, dbParking);
     }
 }

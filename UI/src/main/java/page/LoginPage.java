@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
+import static util.ConfProperties.getProperty;
+
 public class LoginPage extends BasePage<LoginPage> {
 
     public LoginPage(WebDriver browser) {
@@ -44,5 +46,19 @@ public class LoginPage extends BasePage<LoginPage> {
     @Step("Клик по кнопке входа 'Login'")
     public LoginPage clickSubmitLoginButton() {
         return clickElement(submitLoginButton);
+    }
+
+    @Step("Авторизация под обычным пользователем")
+    public LoginPage authUserAccount() {
+        browser.get(getProperty("loginPageUrl"));
+        return clickCustomerLoginButton()
+                .selectTestUser(getProperty("userName"))
+                .clickSubmitLoginButton();
+    }
+
+    @Step("Авторизация под менеджером")
+    public LoginPage authManagerAccount() {
+        browser.get(getProperty("loginPageUrl"));
+        return clickManagerLoginButton();
     }
 }
