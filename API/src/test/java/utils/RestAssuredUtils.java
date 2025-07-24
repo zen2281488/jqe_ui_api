@@ -22,8 +22,8 @@ public class RestAssuredUtils {
     public static String getToken() {
         try {
             Map<String, String> credentials = new HashMap<>();
-            credentials.put("username", System.getenv("API_USER"));
-            credentials.put("password", System.getenv("API_PASSWORD"));
+            credentials.put("username", System.getProperty("API_USER"));
+            credentials.put("password", System.getProperty("API_PASSWORD"));
 
             ObjectMapper objectMapper = new ObjectMapper();
             String jsonBody = objectMapper.writeValueAsString(credentials);
@@ -32,7 +32,7 @@ public class RestAssuredUtils {
                     .contentType(ContentType.JSON)
                     .body(jsonBody)
                     .when()
-                    .post(System.getenv("BASE_URL") + "login")
+                    .post(System.getProperty("BASE_URL") + "login")
                     .then()
                     .statusCode(202)
                     .extract()

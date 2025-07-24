@@ -22,7 +22,7 @@ public abstract class BaseTest {
     protected CarService carService;
 
     static {
-        RestAssured.baseURI = System.getenv("BASE_URL");
+        RestAssured.baseURI = System.getProperty("BASE_URL");
         RestAssured.defaultParser = Parser.JSON;
     }
 
