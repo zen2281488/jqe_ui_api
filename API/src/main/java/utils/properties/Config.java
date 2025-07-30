@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.util.Properties;
 
 @UtilityClass
-public class ConfProperties {
+public class Config {
     private static final Properties commonProperties;
-    private static final Logger logger = LogManager.getLogger(ConfProperties.class);
+    private static final Logger logger = LogManager.getLogger(Config.class);
 
     static {
         commonProperties = loadProperties("src/test/resources/conf.properties");

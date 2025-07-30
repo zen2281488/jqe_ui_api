@@ -1,10 +1,12 @@
 package tests.api;
 
+import io.restassured.config.ObjectMapperConfig;
+import io.restassured.mapper.ObjectMapperType;
 import org.junit.jupiter.api.BeforeEach;
 import services.CarService;
 import services.HouseService;
 import services.UserService;
-import utils.RestAssuredUtils;
+import utils.ApiClientUtils;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import models.api.Car;
@@ -24,11 +26,15 @@ public abstract class BaseTest {
     static {
         RestAssured.baseURI = System.getProperty("BASE_URL");
         RestAssured.defaultParser = Parser.JSON;
+        RestAssured.config = RestAssured.config().objectMapperConfig(
+                ObjectMapperConfig.objectMapperConfig()
+                        .defaultObjectMapperType(ObjectMapperType.JACKSON_2)
+        );
     }
 
     @BeforeEach
     public void beforeEach() {
-        token = RestAssuredUtils.getToken();
+        token = ApiClientUtils.getToken();
         newLocalUser = TestData.user();
         newLocalHouse = TestData.house();
         newLocalCar = TestData.car();

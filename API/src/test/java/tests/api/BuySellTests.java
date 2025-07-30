@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import utils.AssertionsUtils;
-import utils.RestAssuredUtils;
+import utils.ApiClientUtils;
 import utils.data.api.SortUtils;
 
 @Epic("Тестирование API тестового полигона")
@@ -17,8 +17,8 @@ public class BuySellTests extends BaseTest {
     @DisplayName("API-T-001")
     @Test
     public void buyCarTest() {
-        var answerApiCar = RestAssuredUtils.createCar(newLocalCar);
-        var answerBuyCar = RestAssuredUtils.buyCar(RestAssuredUtils.createUser(newLocalUser).getId(), answerApiCar.getId());
+        var answerApiCar = ApiClientUtils.createCar(newLocalCar);
+        var answerBuyCar = ApiClientUtils.buyCar(ApiClientUtils.createUser(newLocalUser).getId(), answerApiCar.getId());
         var dbUser = userService.findUser(answerBuyCar.getId());
 
         Assertions.assertAll(
@@ -46,9 +46,9 @@ public class BuySellTests extends BaseTest {
     @DisplayName("API-T-002")
     @Test
     public void settleHouse() {
-        var answerApiUser = RestAssuredUtils.createUser(newLocalUser);
-        var answerApiHouse = RestAssuredUtils.createHouse(newLocalHouse);
-        var answerBuyHouse = RestAssuredUtils.buyHouse(answerApiHouse.getId(), answerApiUser.getId());
+        var answerApiUser = ApiClientUtils.createUser(newLocalUser);
+        var answerApiHouse = ApiClientUtils.createHouse(newLocalHouse);
+        var answerBuyHouse = ApiClientUtils.buyHouse(answerApiHouse.getId(), answerApiUser.getId());
 
         var expectedParking = SortUtils.sortParkingPlace(newLocalHouse);
         var apiParking = SortUtils.sortParkingPlace(answerBuyHouse);

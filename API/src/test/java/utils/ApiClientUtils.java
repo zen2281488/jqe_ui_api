@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @UtilityClass
-public class RestAssuredUtils {
+public class ApiClientUtils {
 
     private static String token;
 
@@ -25,12 +25,9 @@ public class RestAssuredUtils {
             credentials.put("username", System.getProperty("API_USER"));
             credentials.put("password", System.getProperty("API_PASSWORD"));
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jsonBody = objectMapper.writeValueAsString(credentials);
-
             token = RestAssured.given()
                     .contentType(ContentType.JSON)
-                    .body(jsonBody)
+                    .body(credentials)
                     .when()
                     .post(System.getProperty("BASE_URL") + "login")
                     .then()
