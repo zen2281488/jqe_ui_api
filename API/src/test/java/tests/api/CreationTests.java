@@ -2,7 +2,7 @@ package tests.api;
 
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
-import utils.ApiClientUtils;
+import client.ApiClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import utils.AssertionsUtils;
@@ -18,7 +18,7 @@ public class CreationTests extends BaseTest {
     @Description("Тестирование создания пользователя")
     @Issue("API-customer-create-user")
     public void createUserTest() {
-        var answerApiUser = ApiClientUtils.createUser(newLocalUser);
+        var answerApiUser = ApiClient.createUser(newLocalUser);
 
         Assertions.assertAll(
                 () -> Assertions.assertEquals(newLocalUser.getFirstName(), answerApiUser.getFirstName()),
@@ -47,7 +47,7 @@ public class CreationTests extends BaseTest {
     @Description("Тестирование создания дома с парковками")
     @Issue("API-customer-create-house")
     public void createHouseTest() {
-        var answerApiHouse = ApiClientUtils.createHouse(newLocalHouse);
+        var answerApiHouse = ApiClient.createHouse(newLocalHouse);
 
         var expectedParking = SortUtils.sortParkingPlace(newLocalHouse);
         var actualParking = SortUtils.sortParkingPlace(answerApiHouse);
@@ -78,7 +78,7 @@ public class CreationTests extends BaseTest {
     @Description("Тестирование создания автомобиля")
     @Issue("API-customer-create-car")
     public void createCarTest() {
-        var answerApiCar = ApiClientUtils.createCar(newLocalCar);
+        var answerApiCar = ApiClient.createCar(newLocalCar);
         var dbCar = carService.findCar(answerApiCar.getId());
 
         Assertions.assertAll(

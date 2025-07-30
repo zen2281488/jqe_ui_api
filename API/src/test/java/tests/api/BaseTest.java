@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import services.CarService;
 import services.HouseService;
 import services.UserService;
-import utils.ApiClientUtils;
+import client.ApiClient;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import models.api.Car;
@@ -34,7 +34,7 @@ public abstract class BaseTest {
 
     @BeforeEach
     public void beforeEach() {
-        token = ApiClientUtils.getToken();
+        token = ApiClient.getToken();
         newLocalUser = TestData.user();
         newLocalHouse = TestData.house();
         newLocalCar = TestData.car();

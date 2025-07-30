@@ -1,11 +1,9 @@
-package utils;
+package client;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
-import lombok.experimental.UtilityClass;
 import models.api.Car;
 import models.api.House;
 import models.api.User;
@@ -13,8 +11,7 @@ import models.api.User;
 import java.util.HashMap;
 import java.util.Map;
 
-@UtilityClass
-public class ApiClientUtils {
+public class ApiClient {
 
     private static String token;
 
