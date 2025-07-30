@@ -10,8 +10,8 @@ public class EngineType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    private Integer id;
 
     @Column(name = "type_name")
-    protected String typeName;
+    private String typeName;
 }

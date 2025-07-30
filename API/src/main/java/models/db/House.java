@@ -11,16 +11,16 @@ import java.util.List;
 public class House {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    private Integer id;
 
     @Column (name = "floor_count")
-    protected Integer floorCount;
+    private Integer floorCount;
 
-    protected Integer price;
-
-    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    protected List<ParkingPlace> parkingPlaces;
+    private Integer price;
 
     @OneToMany(mappedBy = "house", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    protected List<User> lodgers;
+    private List<ParkingPlace> parkingPlaces;
+
+    @OneToMany(mappedBy = "house", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<User> lodgers;
 }

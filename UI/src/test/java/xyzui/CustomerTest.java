@@ -14,7 +14,6 @@ import page.LoginPage;
 import page.TransactionPage;
 
 import static util.ConfProperties.getProperty;
-import static util.TestUtils.*;
 import static util.WriteUtils.*;
 
 @Epic("XYZ-Bank")
@@ -54,7 +53,7 @@ public class CustomerTest extends BaseTest {
     @Issue("XYZ-UI-customer-depositWithdrawl")
     @DisplayName("T-004")
     public void customerDepositWithdrawlTest() {
-        authUserAccount(driver, loginPage);
+        loginPage.authUserAccount();
 
         accountPage.clickDepositButton().fillAmountDepositInput(100).clickSubmitDepositButton().clickWithDrawlButton().fillAmountWithDrawlInput(100).clickSubmitWithdrawlButton();
         Assertions.assertEquals("0", accountPage.getBalance());
@@ -77,7 +76,7 @@ public class CustomerTest extends BaseTest {
     @Issue("XYZ-UI-customer-transactions")
     @DisplayName("T-005")
     public void testNavigationButtonOpenTransactions() {
-        authUserAccount(driver, loginPage);
+        loginPage.authUserAccount();
         accountPage.clickTransactionsButton();
         transactionPage.tableHeadIsVisible().clickBack();
     }
@@ -89,7 +88,7 @@ public class CustomerTest extends BaseTest {
     @Issue("XYZ-UI-customer-deposit")
     @DisplayName("T-002")
     public void testNavigationButtonOpenDeposit() {
-        authUserAccount(driver, loginPage);
+        loginPage.authUserAccount();
         accountPage.clickDepositButton().submitDepositButtonIsVisible().depositInputIsVisible();
     }
 
@@ -100,7 +99,7 @@ public class CustomerTest extends BaseTest {
     @Issue("XYZ-UI-customer-withdrawl")
     @DisplayName("T-003")
     public void testNavigationButtonOpenWithdrawl() {
-        authUserAccount(driver, loginPage);
+        loginPage.authUserAccount();
         accountPage.clickWithDrawlButton().submitWithdrawButtonIsVisible().withdrawInputIsVisible();
     }
 
@@ -125,7 +124,7 @@ public class CustomerTest extends BaseTest {
     @Issue("XYZ-UI-manager-add-customer")
     @DisplayName("T-007")
     public void testAddNewCustomer() {
-        authManagerAccount(driver, loginPage);
+        loginPage.authManagerAccount();
         bankManagerPage.clickAddCustomerButton().fillNewCustomerForm("testName", "testLastname", "123");
         Alert alert = bankManagerPage.waitAlert();
         Assertions.assertTrue(alert.getText().contains("Customer added successfully with customer id :"));
@@ -151,7 +150,7 @@ public class CustomerTest extends BaseTest {
     @ParameterizedTest(name = "Попытка внести невалидную сумму: \"{0}\"")
     @ValueSource(strings = {"-100", "abc", "0", "", " ", "100,50", "#$%"})
     public void customerDepositInvalidAmountTest(String invalidAmount) {
-        authUserAccount(driver, loginPage);
+        loginPage.authUserAccount();
         int oldBalance = Integer.parseInt(accountPage.getBalance());
         accountPage.clickDepositButton().fillAmountDepositInput(invalidAmount).clickSubmitDepositButton();
         Assertions.assertEquals(oldBalance, Integer.parseInt(accountPage.getBalance()));
@@ -165,7 +164,7 @@ public class CustomerTest extends BaseTest {
     @ParameterizedTest(name = "Попытка снятие невалидной суммы: \"{0}\"")
     @ValueSource(strings = {"-100", "abc", "0", "", " ", "100,50", "#$%"})
     public void customerWithdrawlInvalidAmountTest(String invalidAmount) {
-        authUserAccount(driver, loginPage);
+        loginPage.authUserAccount();
         int oldBalance = Integer.parseInt(accountPage.getBalance());
         accountPage.clickWithDrawlButton().fillAmountWithDrawlInput(invalidAmount).clickSubmitWithdrawlButton();
         Assertions.assertEquals(oldBalance, Integer.parseInt(accountPage.getBalance()));
@@ -178,8 +177,8 @@ public class CustomerTest extends BaseTest {
     @Issue("XYZ-UI-customer-select-account")
     @DisplayName("T-010")
     public void selectAccountTest() {
-        authUserAccount(driver, loginPage);
-        sendTestDeposit(driver, accountPage);
+        loginPage.authUserAccount();
+        accountPage.sendTestDeposit();
         int oldBalance = Integer.parseInt(accountPage.getBalance());
         String oldCurrency = accountPage.getCurrency();
         accountPage.clickAccountSelector("1005");

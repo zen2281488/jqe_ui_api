@@ -138,4 +138,12 @@ public class AccountPage extends BasePage<AccountPage> {
         wait.until(visibilityOf(currency));
         return currency.getText();
     }
+
+    @Step("Внесение тестового депозита на сумму 100")
+    public AccountPage sendTestDeposit() {
+        return clickDepositButton()
+                .fillAmountDepositInput("100")
+                .clickSubmitDepositButton();
+    }
+
 }

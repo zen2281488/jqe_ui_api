@@ -9,12 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: dev
-    env:
-      API_USER: ${{ secrets.API_USER }}
-      API_PASSWORD: ${{ secrets.API_PASSWORD }}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      BASE_URL: ${{ secrets.BASE_URL }}
 
     steps:
       - name: Checkout code
@@ -37,11 +31,17 @@ jobs:
 
       - name: Run tests
         run: |
-          mvn clean test -fail-at-end
+          mvn clean test -fail-at-end \
+            -DDB_USER=${{ secrets.DB_USER }} \
+            -DDB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            -DAPI_USER=${{ secrets.API_USER }} \
+            -DAPI_PASSWORD=${{ secrets.API_PASSWORD }} \
+            -DBASE_URL=${{ secrets.BASE_URL }}
+
       - name: Checkout gh-pages branch
-        uses: actions/checkout@v2
         if: always()
         continue-on-error: true
+        uses: actions/checkout@v2
         with:
           ref: gh-pages
           path: gh-pages
@@ -56,8 +56,8 @@ jobs:
           done
 
       - name: Generate Allure report
-        uses: simple-elf/allure-report-action@master
         if: always()
+        uses: simple-elf/allure-report-action@master
         id: allure
         with:
           allure_results: combined-allure-results
