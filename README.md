@@ -1,5 +1,5 @@
 ## ✅ **PFLB Test Project**
-![Static Badge](https://img.shields.io/badge/Allure-Report-red?style=flat&link=https%3A%2F%2Fzen2281488.github.io%2Fjqe_ui_api%2F)
+[![Static Badge](https://img.shields.io/badge/Allure-Report-red?style=flat&link=https%3A%2F%2Fzen2281488.github.io%2Fjqe_ui_api%2F)](https://zen2281488.github.io/jqe_ui_api/)
 
 
 
